@@ -85,7 +85,7 @@ def generate_ppt(ppt_content):
 
     # Body slides — one per subtopic
     for i, subtopic in enumerate(ppt_content.subtopics):
-        bullets = ppt_content.subtopicContent[i].bullets
+        bullets = ppt_content.subtopicContentList[i].bullets
         layout_num = ppt_content.layoutselect[i]
 
         body_slide = get_body_slide(layout_num, subtopic, bullets)
