@@ -8,7 +8,7 @@ load_dotenv()
 
 
 
-tools = [TavilySearch(max_results=1)]
+tools = [TavilySearch(max_results=3)]
 
 llmbt = ChatOpenAI(model="gpt-4o-mini", temperature=0).bind_tools(tools)
 
