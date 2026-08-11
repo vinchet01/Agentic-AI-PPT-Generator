@@ -23,9 +23,6 @@ from systemmessages import (
 load_dotenv()
 
 
-# =========================================================
-# PYDANTIC MODELS
-# =========================================================
 
 class SubtopicList(BaseModel):
     subtopiclist: list[str]
@@ -56,11 +53,6 @@ class PPTContent(BaseModel):
     layoutselect: list[int]
 
 
-# =========================================================
-# WORKER STATE
-#
-# Used only while researching/writing ONE slide.
-# =========================================================
 
 class WorkerState(MessagesState):
     topic: str
@@ -73,9 +65,6 @@ class WorkerState(MessagesState):
     slide_content_structured: Optional[bulletListforOneSlide] = None
 
 
-# =========================================================
-# MAIN PPT STATE
-# =========================================================
 
 class PPTState(MessagesState):
     topic: str
@@ -93,9 +82,6 @@ class PPTState(MessagesState):
     ppt_content: Optional[PPTContent] = None
 
 
-# =========================================================
-# SUBTOPIC WRITER
-# =========================================================
 
 def subtopics_writer(state: PPTState) -> PPTState:
 
@@ -116,9 +102,6 @@ def subtopics_writer(state: PPTState) -> PPTState:
     }
 
 
-# =========================================================
-# SUBTOPIC PYDANTIC
-# =========================================================
 
 def putsubtopics_in_pydantic(state: PPTState) -> PPTState:
 
@@ -140,9 +123,6 @@ def putsubtopics_in_pydantic(state: PPTState) -> PPTState:
     }
 
 
-# =========================================================
-# RESEARCH ONE SUBTOPIC
-# =========================================================
 
 def subtopic_content_writer(state: WorkerState) -> WorkerState:
 
@@ -157,22 +137,17 @@ def subtopic_content_writer(state: WorkerState) -> WorkerState:
         *state["messages"]
     ])
 
-    # LLM wants Tavily
     if response.tool_calls:
         return {
             "messages": [response]
         }
 
-    # Research finished
     return {
         "messages": [response],
         "research_finding": response.content
     }
 
 
-# =========================================================
-# WRITE ONE SLIDE
-# =========================================================
 
 def slide_writer(state: WorkerState) -> WorkerState:
 
@@ -192,9 +167,6 @@ def slide_writer(state: WorkerState) -> WorkerState:
     }
 
 
-# =========================================================
-# CONVERT ONE SLIDE TO PYDANTIC
-# =========================================================
 
 def put_content_in_pydantic(
     state: WorkerState
@@ -221,9 +193,6 @@ def put_content_in_pydantic(
     }
 
 
-# =========================================================
-# LAYOUT SELECTOR
-# =========================================================
 
 def layout_selector(state: PPTState) -> PPTState:
 
@@ -235,9 +204,6 @@ def layout_selector(state: PPTState) -> PPTState:
 
     for slide in state["subtopicscontentlist"]:
 
-        # -----------------------------
-        # 3 BULLETS
-        # -----------------------------
 
         if len(slide.bullets) == 3:
 
@@ -254,9 +220,6 @@ def layout_selector(state: PPTState) -> PPTState:
 
             layoutselectionlist.append(layout)
 
-        # -----------------------------
-        # 4 BULLETS
-        # -----------------------------
 
         elif len(slide.bullets) == 4:
 
@@ -285,9 +248,6 @@ def layout_selector(state: PPTState) -> PPTState:
     }
 
 
-# =========================================================
-# FINAL PPT CONTENT
-# =========================================================
 
 def put_everything_in_pydanticmodel(
     state: PPTState
@@ -316,8 +276,5 @@ def put_everything_in_pydanticmodel(
     }
 
 
-# =========================================================
-# TAVILY TOOL NODE
-# =========================================================
 
 tool_node = ToolNode(tools)

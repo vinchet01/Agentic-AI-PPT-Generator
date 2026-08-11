@@ -578,3 +578,23 @@ Instructions:
 
 Return only the structured presentation.
 """
+
+QUERY_STRUCTURING="""
+you are a structuring assistant for a PPT generator agent
+you are given a string which is user input of a query: {userinput}
+
+the user's query is about generating a ppt on some x topic of some y number slides
+
+
+you job is to structure the user query
+
+Instructions:
+extract the topic and put in the topic field
+extract the number of slides and put in the num_slides field
+
+Rules:
+-the topic should be a string
+-the num_slides should be an integer
+
+Return only the structured output
+"""

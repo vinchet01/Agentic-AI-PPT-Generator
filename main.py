@@ -18,9 +18,6 @@ from nodes import (
 load_dotenv()
 
 
-# =========================================================
-# NODE NAMES
-# =========================================================
 
 SW = "Subtopics_Writer"
 SP = "Subtopics_pydantic"
@@ -40,9 +37,6 @@ LS = "layouts_selector"
 PP = "ppt_content_pydantic"
 
 
-# =========================================================
-# ROUTING
-# =========================================================
 
 def should_continue1(state: PPTState) -> str:
 
@@ -60,11 +54,6 @@ def should_continue2(state: WorkerState) -> str:
     return SLW
 
 
-# =========================================================
-# WORKER GRAPH
-#
-# Handles ONE subtopic.
-# =========================================================
 
 worker = StateGraph(WorkerState)
 
@@ -93,10 +82,6 @@ worker.add_node(
 worker.set_entry_point(SCW)
 
 
-# Research:
-#
-# wants Tavily -> ACT2
-# finished      -> slide writer
 
 worker.add_conditional_edges(
     SCW,
@@ -108,7 +93,6 @@ worker.add_conditional_edges(
 )
 
 
-# Tavily -> Research Agent again
 
 worker.add_edge(
     ACT2,
@@ -116,7 +100,6 @@ worker.add_edge(
 )
 
 
-# Research -> Slide Writing -> Pydantic
 
 worker.add_edge(
     SLW,
@@ -136,11 +119,7 @@ worker_app.get_graph().draw_mermaid_png(
 )
 
 
-# =========================================================
-# PROCESS ALL SUBTOPICS
-#
-# This is now just a simple Python loop.
-# =========================================================
+
 
 def process_all_subtopics(state: PPTState):
 
@@ -163,16 +142,11 @@ def process_all_subtopics(state: PPTState):
     }
 
 
-# =========================================================
-# MAIN GRAPH
-# =========================================================
 
 flow = StateGraph(PPTState)
 
 
-# ---------------------------------------------------------
-# SUBTOPIC WRITER
-# ---------------------------------------------------------
+
 
 flow.add_node(
     SW,
@@ -182,10 +156,7 @@ flow.add_node(
 flow.set_entry_point(SW)
 
 
-# ---------------------------------------------------------
-# ACT1
-# Tavily for overall-topic research
-# ---------------------------------------------------------
+
 
 flow.add_node(
     ACT1,
@@ -209,9 +180,6 @@ flow.add_edge(
 )
 
 
-# ---------------------------------------------------------
-# SUBTOPICS -> PYDANTIC
-# ---------------------------------------------------------
 
 flow.add_node(
     SP,
@@ -219,9 +187,7 @@ flow.add_node(
 )
 
 
-# ---------------------------------------------------------
-# PROCESS EACH SUBTOPIC
-# ---------------------------------------------------------
+
 
 flow.add_node(
     PROCESS,
@@ -235,9 +201,6 @@ flow.add_edge(
 )
 
 
-# ---------------------------------------------------------
-# LAYOUT SELECTOR
-# ---------------------------------------------------------
 
 flow.add_node(
     LS,
@@ -251,9 +214,6 @@ flow.add_edge(
 )
 
 
-# ---------------------------------------------------------
-# FINAL PPT
-# ---------------------------------------------------------
 
 flow.add_node(
     PP,
@@ -273,9 +233,6 @@ flow.add_edge(
 )
 
 
-# =========================================================
-# COMPILE
-# =========================================================
 
 app = flow.compile()
 
@@ -285,9 +242,7 @@ app.get_graph().draw_mermaid_png(
 )
 
 
-# =========================================================
-# RUN
-# =========================================================
+
 
 if __name__ == "__main__":
 
