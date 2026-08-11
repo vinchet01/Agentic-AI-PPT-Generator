@@ -62,6 +62,11 @@ if user_input:
     st.session_state['message_history'].append({'role':'assistant','content':assistant_message})
     with st.chat_message('assistant'):
         st.markdown(assistant_message)
+        app.invoke({
+        "topic": query_object.topic,
+        "num_slides": query_object.num_slides,
+        "messages": []
+    })
         
     
 

@@ -244,10 +244,3 @@ app.get_graph().draw_mermaid_png(
 
 
 
-if __name__ == "__main__":
-
-    res = app.invoke({
-        "topic": "How UPI Transformed Digital Payments in India",
-        "num_slides": 5,
-        "messages": []
-    })
