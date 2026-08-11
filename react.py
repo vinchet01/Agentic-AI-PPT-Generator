@@ -1,9 +1,10 @@
 from dotenv import load_dotenv
+import os
 from langchain_core.tools import tool
 from langchain_openai import ChatOpenAI
 from langchain_groq import ChatGroq
 from langchain_tavily import TavilySearch
-
+import serpapi
 load_dotenv()
 
 
@@ -25,4 +26,9 @@ llm = ChatOpenAI(model="gpt-4o-mini", temperature=0)
 #     model="llama-3.3-70b-versatile",
 #     temperature=0
 # )
+
+
+imageapi = serpapi.Client(
+    api_key=os.getenv("SERPIMAGES_API_KEY")
+)
 

@@ -895,6 +895,7 @@ dependencies = [
     { name = "langgraph" },
     { name = "python-dotenv" },
     { name = "python-pptx" },
+    { name = "serpapi" },
     { name = "streamlit" },
 ]
 
@@ -909,6 +910,7 @@ requires-dist = [
     { name = "langgraph", specifier = ">=1.2.1" },
     { name = "python-dotenv", specifier = ">=1.2.2" },
     { name = "python-pptx", specifier = ">=1.0.2" },
+    { name = "serpapi", specifier = ">=1.0.2" },
     { name = "streamlit", specifier = ">=1.61.1" },
 ]
 
@@ -2417,6 +2419,18 @@ wheels = [
     { url = "https://files.pythonhosted.org/packages/9c/97/0043896fdd7828ce09a1d9a8b06433714d0960fc4ff3fc4aa72b666b764e/rpds_py-2026.6.3-pp311-pypy311_pp73-musllinux_1_2_aarch64.whl", hash = "sha256:2bfd04c19ddbd6640de0b51894d764bd2758854d5b75bd102d2ef10cb9c293a9", size = 558118, upload-time = "2026-06-30T07:17:47.759Z" },
     { url = "https://files.pythonhosted.org/packages/f6/40/02355f0e134f783a8f9814c4680a1bd311d37671577a5964ea838573ff37/rpds_py-2026.6.3-pp311-pypy311_pp73-musllinux_1_2_i686.whl", hash = "sha256:ca6546b66be9dc4738b1b043d5ebd5488c66c578c5ff0fd0e8065313fe3afb76", size = 623138, upload-time = "2026-06-30T07:17:49.355Z" },
     { url = "https://files.pythonhosted.org/packages/10/85/48f0abdcef5cce4e034c7a5b0ceeceba0b01bf0d942824f4bb720afe2dec/rpds_py-2026.6.3-pp311-pypy311_pp73-musllinux_1_2_x86_64.whl", hash = "sha256:8e65860d238379ed982fd9ba690579b5e95af2f4840f99c772816dbe573cb826", size = 586486, upload-time = "2026-06-30T07:17:51.141Z" },
+]
+
+[[package]]
+name = "serpapi"
+version = "1.0.2"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "requests" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/8d/19/6af9f42d372d2d0012493155f5decf0a889f434e824a6b281ab2c8f88822/serpapi-1.0.2.tar.gz", hash = "sha256:06ff981129a1cb7c3706469a67f8d43e77ab295bcbdbfcb7c118d39e8efb0783", size = 16893, upload-time = "2026-03-18T14:29:16.448Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/80/21/6b33cea480c69992813fbd36bfdb622ead6e91c6ff259ee4b1143803769d/serpapi-1.0.2-py3-none-any.whl", hash = "sha256:4edb67318918c0ff460aae118d66f76ad83ab75fbf901a77a9722b0cfe6c70aa", size = 11768, upload-time = "2026-03-18T14:29:15.515Z" },
 ]
 
 [[package]]

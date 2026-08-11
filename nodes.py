@@ -6,7 +6,7 @@ from langgraph.prebuilt import ToolNode
 from pydantic import BaseModel
 from typing import Optional
 
-from react import llm, llmbt, tools
+from react import llm, llmbt, tools,imageapi
 from ppts import generate_ppt
 
 from systemmessages import (
@@ -166,6 +166,19 @@ def slide_writer(state: WorkerState) -> WorkerState:
         "slidecontentinmessageform": slide_response.content
     }
 
+def slide_writer(state: WorkerState) -> WorkerState:
+    results = imageapi.search({
+  "engine": "google_images",
+  "location": "Austin, Texas, United States",
+  "google_domain": "google.com",
+  "hl": "en",
+  "gl": "us",
+  "q": "types of machine learning algorithms"
+    })
+    images_results = results["images_results"]
+
+
+    return
 
 
 def put_content_in_pydantic(
@@ -191,7 +204,6 @@ def put_content_in_pydantic(
     return {
         "slide_content_structured": slide_content
     }
-
 
 
 def layout_selector(state: PPTState) -> PPTState:
@@ -246,6 +258,7 @@ def layout_selector(state: PPTState) -> PPTState:
     return {
         "layoutslist": layoutselectionlist
     }
+
 
 
 
