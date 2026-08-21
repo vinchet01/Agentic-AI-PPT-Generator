@@ -140,8 +140,8 @@ Generate PowerPoint
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/vinchet01/AI-PPT-Maker-Agent.git
-cd AI-PPT-Maker-Agent
+git clone https://github.com/vinchet01/Agentic-AI-PPT-Generator.git
+cd Agentic-AI-PPT-Generator
 ```
 
 ### 2. Install Dependencies
