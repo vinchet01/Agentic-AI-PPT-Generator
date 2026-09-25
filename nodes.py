@@ -96,6 +96,12 @@ def subtopics_writer(state: PPTState) -> PPTState:
         *state["messages"]
     ])
 
+    if subtopics.tool_calls:
+        return {
+            "messages": [subtopics]
+        }
+
+
     return {
         "messages": [subtopics],
         "subtopicsinmessageform": subtopics.content
@@ -166,19 +172,19 @@ def slide_writer(state: WorkerState) -> WorkerState:
         "slidecontentinmessageform": slide_response.content
     }
 
-def slide_writer(state: WorkerState) -> WorkerState:
-    results = imageapi.search({
-  "engine": "google_images",
-  "location": "Austin, Texas, United States",
-  "google_domain": "google.com",
-  "hl": "en",
-  "gl": "us",
-  "q": "types of machine learning algorithms"
-    })
-    images_results = results["images_results"]
+# def slide_writer(state: WorkerState) -> WorkerState:
+#     results = imageapi.search({
+#   "engine": "google_images",
+#   "location": "Austin, Texas, United States",
+#   "google_domain": "google.com",
+#   "hl": "en",
+#   "gl": "us",
+#   "q": "types of machine learning algorithms"
+#     })
+#     images_results = results["images_results"]
 
 
-    return
+#     return
 
 
 def put_content_in_pydantic(

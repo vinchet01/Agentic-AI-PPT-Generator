@@ -579,22 +579,26 @@ Instructions:
 Return only the structured presentation.
 """
 
-QUERY_STRUCTURING="""
-you are a structuring assistant for a PPT generator agent
-you are given a string which is user input of a query: {userinput}
+QUERY_STRUCTURING = """
+You are a structuring assistant for a PPT generator agent.
 
-the user's query is about generating a ppt on some x topic of some y number slides
+You are given the full conversation history so far. Your job is to determine whether the user is asking to generate a presentation (PPT), and if so, extract the details needed to do it.
 
-
-you job is to structure the user query
+Conversation so far:
+{conversation}
 
 Instructions:
-extract the topic and put in the topic field
-extract the number of slides and put in the num_slides field
+- Look at the most recent user message in context of the whole conversation.
+- Set wants_ppt to True if the user is asking to create/generate a presentation, slides, or PPT (this includes follow-up messages that are answering a previous question about topic or slide count, if the overall intent so far has been to make a PPT).
+- Set wants_ppt to False if the user is just chatting, asking a question, or the message has nothing to do with generating a PPT.
+- If wants_ppt is True, extract the topic into the topic field, if mentioned anywhere in the conversation.
+- If wants_ppt is True, extract the number of slides into the num_slides field, if mentioned anywhere in the conversation.
+- If topic or num_slides has not been mentioned yet, leave that field empty/null. Do not guess or invent values.
 
 Rules:
--the topic should be a string
--the num_slides should be an integer
+- wants_ppt must be a boolean.
+- topic should be a string, or null if not yet known.
+- num_slides should be an integer, or null if not yet known.
 
-Return only the structured output
+Return only the structured output.
 """
