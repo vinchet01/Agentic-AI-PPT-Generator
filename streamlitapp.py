@@ -13,7 +13,7 @@ class userinputstructure(BaseModel):
 
 st.set_page_config(
     page_title="Presently",
-    page_icon="📊"
+    page_icon="logo.png"
 )
 
 

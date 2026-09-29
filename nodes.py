@@ -17,7 +17,6 @@ from systemmessages import (
     PUT_SUBTOPIC_CONTENT_IN_PYDANTIC_MESSAGE,
     LAYOUTS_FOR_3POINTS,
     LAYOUTS_FOR_4POINTS,
-    STRUCTURING_MESSAGE
 )
 
 load_dotenv()
