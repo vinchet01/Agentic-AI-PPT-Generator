@@ -68,22 +68,24 @@ def append_slide(final_prs, slide):
 
 
 
-def generate_ppt(ppt_content):
+def generate_ppt(topic, subtopics, contents, layouts):
     final_prs = Presentation()
     final_prs.slide_width = 12192000
     final_prs.slide_height = 6858000
 
-    intro_slide = get_intro_slide(ppt_content.intro_title)
+    intro_slide = get_intro_slide(topic)
     append_slide(final_prs, intro_slide)
 
-    for i, subtopic in enumerate(ppt_content.subtopics):
-        bullets = ppt_content.subtopicContentList[i].bullets
-        layout_num = ppt_content.layoutselect[i]
+    for i, subtopic in enumerate(subtopics):
+        bullets = contents[i].bullets
+        layout_num = layouts[i]
 
         body_slide = get_body_slide(layout_num, subtopic, bullets)
         append_slide(final_prs, body_slide)
 
-    end_slide = get_end_slide(ppt_content.ending_line)
+
+    ending_line = f"Thank you for exploring {topic}."
+    end_slide = get_end_slide(ending_line)
     append_slide(final_prs, end_slide)
 
     final_prs.save("final_output.pptx")

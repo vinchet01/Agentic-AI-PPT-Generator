@@ -5,8 +5,8 @@ from langgraph.prebuilt import ToolNode
 
 from pydantic import BaseModel
 from typing import Optional
-
-from react import llm, llmbt, tools,imageapi
+import react
+from react import tools, imageapi
 from ppts import generate_ppt
 
 from systemmessages import (
@@ -45,13 +45,6 @@ class LayoutSelection(BaseModel):
     layout: int
 
 
-class PPTContent(BaseModel):
-    intro_title: str
-    subtopics: list[str]
-    subtopicContentList: list[bulletListforOneSlide]
-    ending_line: str
-    layoutselect: list[int]
-
 
 
 class WorkerState(MessagesState):
@@ -79,13 +72,11 @@ class PPTState(MessagesState):
 
     layoutslist: Optional[list[int]] = None
 
-    ppt_content: Optional[PPTContent] = None
-
 
 
 def subtopics_writer(state: PPTState) -> PPTState:
 
-    subtopics = llmbt.invoke([
+    subtopics = react.llmbt.invoke([
         {
             "role": "system",
             "content": SUBTOPIC_MESSAGE.format(
@@ -111,7 +102,7 @@ def subtopics_writer(state: PPTState) -> PPTState:
 
 def putsubtopics_in_pydantic(state: PPTState) -> PPTState:
 
-    structured_llm = llm.with_structured_output(
+    structured_llm = react.llm.with_structured_output(
         SubtopicList
     )
 
@@ -132,7 +123,7 @@ def putsubtopics_in_pydantic(state: PPTState) -> PPTState:
 
 def subtopic_content_writer(state: WorkerState) -> WorkerState:
 
-    response = llmbt.invoke([
+    response = react.llmbt.invoke([
         {
             "role": "system",
             "content": RESEARCH_FILTERING_MESSAGE.format(
@@ -157,7 +148,7 @@ def subtopic_content_writer(state: WorkerState) -> WorkerState:
 
 def slide_writer(state: WorkerState) -> WorkerState:
 
-    slide_response = llm.invoke([
+    slide_response = react.llm.invoke([
         {
             "role": "system",
             "content": SLIDE_WRITING_MESSAGE.format(
@@ -191,7 +182,7 @@ def put_content_in_pydantic(
     state: WorkerState
 ) -> WorkerState:
 
-    structured_llm = llm.with_structured_output(
+    structured_llm = react.llm.with_structured_output(
         bulletListforOneSlide
     )
 
@@ -214,7 +205,7 @@ def put_content_in_pydantic(
 
 def layout_selector(state: PPTState) -> PPTState:
 
-    structured_llm = llm.with_structured_output(
+    structured_llm = react.llm.with_structured_output(
         LayoutSelection
     )
 
@@ -266,33 +257,33 @@ def layout_selector(state: PPTState) -> PPTState:
     }
 
 
+def generate_final_ppt(state: PPTState):
 
+    subtopics = state["subtopiclist"]
+    contents = state["subtopicscontentlist"]
+    layouts = state["layoutslist"]
 
-def put_everything_in_pydanticmodel(
-    state: PPTState
-) -> PPTState:
+    if not (
+        len(subtopics)
+        == len(contents)
+        == len(layouts)
+    ):
+        raise ValueError(
+            f"Mismatch: "
+            f"{len(subtopics)} subtopics, "
+            f"{len(contents)} contents, "
+            f"{len(layouts)} layouts"
+        )
 
-    structured_llm = llm.with_structured_output(
-        PPTContent
+    generate_ppt(
+        topic=state["topic"],
+        subtopics=subtopics,
+        contents=contents,
+        layouts=layouts
     )
 
-    result = structured_llm.invoke([
-        {
-            "role": "system",
-            "content": STRUCTURING_MESSAGE.format(
-                subtopiclist=state["subtopiclist"],
-                subtopiccontentlist=
-                    state["subtopicscontentlist"],
-                layoutlist=state["layoutslist"]
-            )
-        }
-    ])
+    return state
 
-    generate_ppt(result)
-
-    return {
-        "ppt_content": result
-    }
 
 
 

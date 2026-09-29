@@ -12,21 +12,22 @@ load_dotenv()
 tools = [TavilySearch(max_results=3)]
 
 
-llmbt = ChatOpenAI(model="gpt-4o-mini", temperature=0).bind_tools(tools)
-
-# llmbt = ChatGroq(
-#     model="llama-3.3-70b-versatile",
-#     temperature=0
-# ).bind_tools(tools)
+llm = None
+llmbt = None
 
 
+def initialize_llms(api_key):
+    global llm, llmbt
 
-llm = ChatOpenAI(model="gpt-4o-mini", temperature=0)
+    llm = ChatOpenAI(
+        model="gpt-4o-mini",
+        temperature=0,
+        api_key=api_key
+    )
 
-# llm = ChatGroq(
-#     model="llama-3.3-70b-versatile",
-#     temperature=0
-# )
+    llmbt = llm.bind_tools(tools)
+
+
 
 
 imageapi = serpapi.Client(

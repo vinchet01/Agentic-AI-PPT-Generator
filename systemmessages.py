@@ -543,42 +543,6 @@ The output must match the LayoutSelection schema.
 Do not return explanations, reasoning, markdown, labels, or extra text.
 """
 
-
-STRUCTURING_MESSAGE = """
-You are a presentation structuring assistant.
-
-You are given:
-
-Subtopics:
-{subtopiclist}
-
-Subtopic content:
-{subtopiccontentlist}
-
-Slide layout selections:
-{layoutlist}
-
-Your job is to construct the final presentation.
-
-Instructions:
-
-1. Create a short and attractive introductory title for the presentation and store it in intro_title.
-
-2. Copy the subtopics exactly as provided into the subtopics field.
-   - Do not add, remove, rename, or reorder any subtopics.
-
-3. Copy the subtopic content exactly as provided into the subtopicContentList field.
-   - Preserve every bullet head and bullet content.
-   - Do not rewrite, summarize, or modify the content.
-
-4. Copy the layout selections exactly as provided into the layoutselect field.
-   - The number of layouts must equal the number of subtopics.
-
-5. Write a short concluding sentence (1-2 lines) for the presentation and store it in ending_line.
-
-Return only the structured presentation.
-"""
-
 QUERY_STRUCTURING = """
 You are a structuring assistant for a PPT generator agent.
 

@@ -9,7 +9,7 @@ from nodes import (
     slide_writer,
     put_content_in_pydantic,
     layout_selector,
-    put_everything_in_pydanticmodel,
+    generate_final_ppt,
     tool_node,
     PPTState,
     WorkerState
@@ -34,7 +34,7 @@ SCP = "content_pydantic"
 PROCESS = "process_all_subtopics"
 
 LS = "layouts_selector"
-PP = "ppt_content_pydantic"
+GP = "generate_ppt"
 
 
 
@@ -213,22 +213,19 @@ flow.add_edge(
     LS
 )
 
-
-
 flow.add_node(
-    PP,
-    put_everything_in_pydanticmodel
+    GP,
+    generate_final_ppt
 )
+
 
 
 flow.add_edge(
     LS,
-    PP
+    GP
 )
-
-
 flow.add_edge(
-    PP,
+    GP,
     END
 )
 
