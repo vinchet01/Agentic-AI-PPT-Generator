@@ -73,8 +73,13 @@ react.initialize_llms(openai_api_key)
 
 
 if 'message_history' not in st.session_state:
-    st.session_state['message_history']=[]
-
+    st.session_state['message_history']=[
+       {
+          "role": "assistant",
+            "content": "👋 Hi! I'm Presently, your PPT Assistant.\n\nTell me a topic and how many slides you want, and I'll create a presentation for you.\n\nFor example: **Create a 5-slide presentation about Artificial Intelligence.**",
+            "sources": [],
+       }
+    ]
 
 
 
