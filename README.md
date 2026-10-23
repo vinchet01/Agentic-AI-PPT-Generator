@@ -5,7 +5,10 @@ Presently is an AI-powered PowerPoint generation system that researches a topic,
 
 Unlike a simple prompt-to-PPT generator, Presently uses an **agentic research workflow built with LangGraph**, where the LLM can independently use web search tools to gather relevant information before writing each slide.
 
-##Results
+## Results
+
+
+
 <img width="869" height="485" alt="image" src="https://github.com/user-attachments/assets/eeae59a7-e898-4f67-82b9-9450c9a51ff6" />
 <img width="1366" height="707" alt="image" src="https://github.com/user-attachments/assets/55caab25-9dd9-4f65-b4b4-77b2842d9ac3" />
 
@@ -14,7 +17,9 @@ Unlike a simple prompt-to-PPT generator, Presently uses an **agentic research wo
 
 
 
-##Workflow
+## Workflow
+
+
 <img width="304" height="630" alt="flow" src="https://github.com/user-attachments/assets/e9e479f8-6f14-480a-a6d1-a2951080b9a8" />
 
 <img width="257" height="432" alt="worker" src="https://github.com/user-attachments/assets/0dfde266-15db-4b41-aa1c-ec5929f86bd6" />
