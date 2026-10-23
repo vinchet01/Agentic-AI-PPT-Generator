@@ -9,7 +9,7 @@ Unlike a simple prompt-to-PPT generator, Presently uses an **agentic research wo
 
 
 
-<img width="869" height="485" alt="image" src="https://github.com/user-attachments/assets/eeae59a7-e898-4f67-82b9-9450c9a51ff6" />
+<img width="1366" height="705" alt="image" src="https://github.com/user-attachments/assets/f2e53fe3-9106-4826-8a2c-741bc2bd59a7" />
 <img width="1366" height="707" alt="image" src="https://github.com/user-attachments/assets/55caab25-9dd9-4f65-b4b4-77b2842d9ac3" />
 
 
